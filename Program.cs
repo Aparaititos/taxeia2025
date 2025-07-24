@@ -1,4 +1,6 @@
-namespace taxeia2025
+using Peripatos_UI;
+
+namespace Peripatos_UI
 {
     internal static class Program
     {
@@ -11,7 +13,7 @@ namespace taxeia2025
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            Application.Run(new Main_Form());
         }
     }
 }
