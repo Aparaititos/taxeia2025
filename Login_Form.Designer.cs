@@ -162,7 +162,7 @@ namespace Peripatos_UI
             Controls.Add(Textbox_Username);
             Controls.Add(Label_LoginTitle);
             Name = "Login_Form";
-            Text = "Login1";
+            Text = "Peripatos - Login";
             ResumeLayout(false);
             PerformLayout();
         }
