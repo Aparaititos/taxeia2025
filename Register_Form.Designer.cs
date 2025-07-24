@@ -62,6 +62,7 @@
             ClientSize = new Size(800, 450);
             Name = "Register_Form";
             Text = "Peripatos - Register";
+            FormClosed += Register_Form_FormClosed;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();

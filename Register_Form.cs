@@ -106,5 +106,10 @@ namespace Peripatos_UI
             Login_Form login_form = new();
             login_form.Show();
         }
+
+        private void Register_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
