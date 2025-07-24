@@ -38,33 +38,33 @@ namespace Peripatos_UI
 
         }
 
-        private void σχετικάToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Τουριστικός Οδηγός\nDeveloped by ’γγελος Μπερκέτης και Βασίλης Νεοκοσμίδης", "Σχετικά", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //Σύνδεση μενού με τα κουμπιά
-        private void εγγραφήToolStripMenuItem_Click(object sender, EventArgs e)
+        private void registerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             button_register.PerformClick();
         }
 
-        private void είσοδοςToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {
             button_login.PerformClick();
         }
 
-        private void αποσύνδεσηToolStripMenuItem_Click(object sender, EventArgs e)
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             button_logout.PerformClick();
         }
 
-        private void σύνδεσηΕπισκέπτηToolStripMenuItem_Click(object sender, EventArgs e)
+        private void guestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             button_guest.PerformClick();
         }
 
-        private void έξοδοςToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
