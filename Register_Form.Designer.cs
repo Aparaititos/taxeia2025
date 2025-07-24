@@ -35,8 +35,9 @@
             // 
             // Label_LoginTitle
             // 
-            Label_LoginTitle.Size = new Size(476, 45);
-            Label_LoginTitle.Text = "Register to \"Peripatos\"φδωσψω";
+            Label_LoginTitle.Size = new Size(422, 54);
+            Label_LoginTitle.Text = "Register to \"Peripatos\"";
+            Label_LoginTitle.Click += Label_LoginTitle_Click;
             // 
             // LoginForm_LinkLabel_GuestForm
             // 
@@ -49,6 +50,7 @@
             // 
             // Textbox_Password
             // 
+            Textbox_Password.Margin = new Padding(3, 5, 3, 5);
             Textbox_Password.TextChanged += Textbox_Password_TextChanged;
             // 
             // errorProvider1
@@ -57,9 +59,10 @@
             // 
             // Register_Form
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
+            Margin = new Padding(3, 5, 3, 5);
             Name = "Register_Form";
             Text = "Peripatos - Register";
             FormClosed += Register_Form_FormClosed;

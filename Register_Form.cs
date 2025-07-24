@@ -111,5 +111,10 @@ namespace Peripatos_UI
         {
             Application.Exit();
         }
+
+        private void Label_LoginTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

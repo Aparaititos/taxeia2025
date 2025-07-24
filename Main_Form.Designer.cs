@@ -1,6 +1,6 @@
-﻿namespace taxeia2025
+﻿namespace Peripatos_UI
 {
-    partial class MainForm
+    partial class Main_Form
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,13 +30,13 @@
         {
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
-            εγγραφήToolStripMenuItem = new ToolStripMenuItem();
-            είσοδοςToolStripMenuItem = new ToolStripMenuItem();
-            αποσύνδεσηToolStripMenuItem = new ToolStripMenuItem();
-            σύνδεσηΕπισκέπτηToolStripMenuItem = new ToolStripMenuItem();
-            έξοδοςToolStripMenuItem = new ToolStripMenuItem();
+            registerToolStripMenuItem = new ToolStripMenuItem();
+            loginToolStripMenuItem = new ToolStripMenuItem();
+            logoutToolStripMenuItem = new ToolStripMenuItem();
+            guestToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
-            σχετικάToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             label_tour_odigos = new Label();
             button_register = new Button();
             button_login = new Button();
@@ -57,59 +57,59 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { εγγραφήToolStripMenuItem, είσοδοςToolStripMenuItem, αποσύνδεσηToolStripMenuItem, σύνδεσηΕπισκέπτηToolStripMenuItem, έξοδοςToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { registerToolStripMenuItem, loginToolStripMenuItem, logoutToolStripMenuItem, guestToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(70, 24);
             fileToolStripMenuItem.Text = "Αρχείο";
             // 
-            // εγγραφήToolStripMenuItem
+            // registerToolStripMenuItem
             // 
-            εγγραφήToolStripMenuItem.Name = "εγγραφήToolStripMenuItem";
-            εγγραφήToolStripMenuItem.Size = new Size(224, 26);
-            εγγραφήToolStripMenuItem.Text = "Εγγραφή";
-            εγγραφήToolStripMenuItem.Click += εγγραφήToolStripMenuItem_Click;
+            registerToolStripMenuItem.Name = "registerToolStripMenuItem";
+            registerToolStripMenuItem.Size = new Size(224, 26);
+            registerToolStripMenuItem.Text = "Εγγραφή";
+            registerToolStripMenuItem.Click += εγγραφήToolStripMenuItem_Click;
             // 
-            // είσοδοςToolStripMenuItem
+            // loginToolStripMenuItem
             // 
-            είσοδοςToolStripMenuItem.Name = "είσοδοςToolStripMenuItem";
-            είσοδοςToolStripMenuItem.Size = new Size(224, 26);
-            είσοδοςToolStripMenuItem.Text = "Σύνδεση";
-            είσοδοςToolStripMenuItem.Click += είσοδοςToolStripMenuItem_Click;
+            loginToolStripMenuItem.Name = "loginToolStripMenuItem";
+            loginToolStripMenuItem.Size = new Size(224, 26);
+            loginToolStripMenuItem.Text = "Σύνδεση";
+            loginToolStripMenuItem.Click += είσοδοςToolStripMenuItem_Click;
             // 
-            // αποσύνδεσηToolStripMenuItem
+            // logoutToolStripMenuItem
             // 
-            αποσύνδεσηToolStripMenuItem.Name = "αποσύνδεσηToolStripMenuItem";
-            αποσύνδεσηToolStripMenuItem.Size = new Size(224, 26);
-            αποσύνδεσηToolStripMenuItem.Text = "Αποσύνδεση";
-            αποσύνδεσηToolStripMenuItem.Click += αποσύνδεσηToolStripMenuItem_Click;
+            logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            logoutToolStripMenuItem.Size = new Size(224, 26);
+            logoutToolStripMenuItem.Text = "Αποσύνδεση";
+            logoutToolStripMenuItem.Click += αποσύνδεσηToolStripMenuItem_Click;
             // 
-            // σύνδεσηΕπισκέπτηToolStripMenuItem
+            // guestToolStripMenuItem
             // 
-            σύνδεσηΕπισκέπτηToolStripMenuItem.Name = "σύνδεσηΕπισκέπτηToolStripMenuItem";
-            σύνδεσηΕπισκέπτηToolStripMenuItem.Size = new Size(224, 26);
-            σύνδεσηΕπισκέπτηToolStripMenuItem.Text = "Σύνδεση Επισκέπτη";
-            σύνδεσηΕπισκέπτηToolStripMenuItem.Click += σύνδεσηΕπισκέπτηToolStripMenuItem_Click;
+            guestToolStripMenuItem.Name = "guestToolStripMenuItem";
+            guestToolStripMenuItem.Size = new Size(224, 26);
+            guestToolStripMenuItem.Text = "Σύνδεση Επισκέπτη";
+            guestToolStripMenuItem.Click += σύνδεσηΕπισκέπτηToolStripMenuItem_Click;
             // 
-            // έξοδοςToolStripMenuItem
+            // exitToolStripMenuItem
             // 
-            έξοδοςToolStripMenuItem.Name = "έξοδοςToolStripMenuItem";
-            έξοδοςToolStripMenuItem.Size = new Size(224, 26);
-            έξοδοςToolStripMenuItem.Text = "Έξοδος";
-            έξοδοςToolStripMenuItem.Click += έξοδοςToolStripMenuItem_Click;
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Text = "Έξοδος";
+            exitToolStripMenuItem.Click += έξοδοςToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
-            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { σχετικάToolStripMenuItem });
+            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             helpToolStripMenuItem.Size = new Size(79, 24);
             helpToolStripMenuItem.Text = "Βοήθεια";
             // 
-            // σχετικάToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            σχετικάToolStripMenuItem.Name = "σχετικάToolStripMenuItem";
-            σχετικάToolStripMenuItem.Size = new Size(152, 26);
-            σχετικάToolStripMenuItem.Text = "Σχετικά...";
-            σχετικάToolStripMenuItem.Click += σχετικάToolStripMenuItem_Click;
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(224, 26);
+            aboutToolStripMenuItem.Text = "Σχετικά...";
+            aboutToolStripMenuItem.Click += σχετικάToolStripMenuItem_Click;
             // 
             // label_tour_odigos
             // 
@@ -161,7 +161,7 @@
             button_guest.UseVisualStyleBackColor = true;
             button_guest.Click += button_guest_Click;
             // 
-            // MainForm
+            // Main_Form
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -173,9 +173,9 @@
             Controls.Add(label_tour_odigos);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Name = "MainForm";
+            Name = "Main_Form";
             Text = "Τουριστικός Οδηγός";
-            Load += MainForm_Load;
+            Load += Main_Form_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -186,13 +186,13 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem εγγραφήToolStripMenuItem;
-        private ToolStripMenuItem είσοδοςToolStripMenuItem;
-        private ToolStripMenuItem αποσύνδεσηToolStripMenuItem;
-        private ToolStripMenuItem έξοδοςToolStripMenuItem;
+        private ToolStripMenuItem registerToolStripMenuItem;
+        private ToolStripMenuItem loginToolStripMenuItem;
+        private ToolStripMenuItem logoutToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
-        private ToolStripMenuItem σχετικάToolStripMenuItem;
-        private ToolStripMenuItem σύνδεσηΕπισκέπτηToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem guestToolStripMenuItem;
         private Label label_tour_odigos;
         private Button button_register;
         private Button button_login;
