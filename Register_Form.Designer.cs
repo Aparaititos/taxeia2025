@@ -35,8 +35,8 @@
             // 
             // Label_LoginTitle
             // 
-            Label_LoginTitle.Size = new Size(341, 45);
-            Label_LoginTitle.Text = "Register to \"Peripatos\"";
+            Label_LoginTitle.Size = new Size(476, 45);
+            Label_LoginTitle.Text = "Register to \"Peripatos\"φδωσψω";
             // 
             // LoginForm_LinkLabel_GuestForm
             // 
