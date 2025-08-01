@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peripatos_UI", "Peripatos_UI.csproj", "{FC2CF1AD-7C5E-44DF-9809-199C5CE3A34F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peripatos_Core", "..\Peripatos_Core]\Peripatos_Core.csproj", "{7971CC30-6864-4C94-A499-3389DB1D28FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FC2CF1AD-7C5E-44DF-9809-199C5CE3A34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC2CF1AD-7C5E-44DF-9809-199C5CE3A34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC2CF1AD-7C5E-44DF-9809-199C5CE3A34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7971CC30-6864-4C94-A499-3389DB1D28FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7971CC30-6864-4C94-A499-3389DB1D28FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7971CC30-6864-4C94-A499-3389DB1D28FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7971CC30-6864-4C94-A499-3389DB1D28FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
