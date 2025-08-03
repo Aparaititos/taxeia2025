@@ -168,9 +168,7 @@ namespace Peripatos_UI
         }
 
         #endregion
-        private TextBox Textbox_Username;
         private Label Label_Username;
-        private Label Label_Password;
         protected Label Label_LoginTitle;
         protected Label LoginForm_Label_CreateUser;
         protected LinkLabel LoginForm_LinkLabel_CreateUserForm;
@@ -178,5 +176,7 @@ namespace Peripatos_UI
         protected Label LoginForm_Label_GuestForm;
         protected Button Button_Submit;
         protected TextBox Textbox_Password;
+        protected TextBox Textbox_Username;
+        protected Label Label_Password;
     }
 }

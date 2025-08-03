@@ -1,4 +1,5 @@
-﻿using Peripatos_UI;
+﻿using Peripatos_Core;
+using Peripatos_UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -102,6 +103,7 @@ namespace Peripatos_UI
 
         private void Button_Submit_Click(object sender, EventArgs e)
         {
+            Database.Insert_User(Textbox_Username.Text, Textbox_Password.Text);
             this.Close();
             Login_Form login_form = new();
             login_form.Show();
@@ -110,11 +112,6 @@ namespace Peripatos_UI
         private void Register_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
-        }
-
-        private void Label_LoginTitle_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

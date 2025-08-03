@@ -1,3 +1,4 @@
+using Peripatos_Core;
 namespace Peripatos_UI
 {
     public partial class Main_Form : Form
@@ -9,7 +10,7 @@ namespace Peripatos_UI
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
-
+            Database.Connect_PeripatosDB();
         }
 
         private void label_tour_odigos_Click(object sender, EventArgs e)
