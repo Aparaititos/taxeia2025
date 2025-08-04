@@ -54,14 +54,14 @@
             // 
             // LoginForm_Label_GuestForm
             // 
-            LoginForm_Label_GuestForm.Location = new Point(24, 424);            // 
+            LoginForm_Label_GuestForm.Location = new Point(24, 424);
+            // 
             // Button_Submit
             // 
             Button_Submit.Location = new Point(228, 258);
             Button_Submit.Margin = new Padding(3, 2, 3, 2);
             Button_Submit.Size = new Size(148, 38);
             Button_Submit.Text = "Register";
-            Button_Submit.Click += Button_Submit_Click;
             // 
             // Textbox_Password
             // 

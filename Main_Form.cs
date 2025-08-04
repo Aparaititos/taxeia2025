@@ -19,14 +19,15 @@ namespace Peripatos_UI
         }
         private void button_register_Click(object sender, EventArgs e)
         {
-            Register_Form form = new Register_Form();
-            form.Show();
+            this.Hide();
+            new Register_Form().Show();
+            
         }
 
         private void button_login_Click(object sender, EventArgs e)
         {
-            Login_Form form = new Login_Form();
-            form.Show();
+            this.Hide();
+            new Login_Form().Show();
         }
 
         private void button_logout_Click(object sender, EventArgs e)

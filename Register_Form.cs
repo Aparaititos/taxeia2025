@@ -31,6 +31,13 @@ namespace Peripatos_UI
             //Settings for error
             errorProvider1.SetIconPadding(Textbox_Password, 2);
             errorProvider1.Icon = SystemIcons.Warning;
+
+
+
+            this.Button_Submit.Click -= base.Button_Submit_Click;
+
+
+            this.Button_Submit.Click += this.Button_Register_Click;
         }
 
         private void LoginForm_LinkLabel_GuestForm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -101,17 +108,41 @@ namespace Peripatos_UI
 
         }
 
-        private void Button_Submit_Click(object sender, EventArgs e)
+        private void Button_Register_Click(object? sender, EventArgs e)
         {
-            Database.Insert_User(Textbox_Username.Text, Textbox_Password.Text);
-            this.Close();
-            Login_Form login_form = new();
-            login_form.Show();
+            bool created;
+            try
+            {
+                created = Database.Insert_User(Textbox_Username.Text.Trim(), Textbox_Password.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"An unexpected database error occurred:\n{ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            if (!created)
+            {
+                MessageBox.Show(
+                    "That username is already taken. Please choose another one.",
+                    "Registration Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            this.Hide();
+            new Login_Form().Show();
         }
 
         private void Register_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            this.Hide();
         }
     }
 }

@@ -163,6 +163,7 @@ namespace Peripatos_UI
             Controls.Add(Label_LoginTitle);
             Name = "Login_Form";
             Text = "Peripatos - Login";
+            FormClosed += Login_Form_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

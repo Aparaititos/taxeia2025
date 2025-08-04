@@ -1,6 +1,8 @@
 using Peripatos_UI;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Peripatos_Core;
 
 namespace Peripatos_UI
 {
@@ -18,11 +20,35 @@ namespace Peripatos_UI
             register_form.Show();
         }
 
-        private void Button_Submit_Click(object sender, EventArgs e)
+        protected void Button_Submit_Click(object? sender, EventArgs e)
         {
+
+            bool userExists = Database.Select_User(Textbox_Username.Text, Textbox_Password.Text);
+
+            if (userExists)
+            {
+                MessageBox.Show(
+                    $"Welcome {Textbox_Username.Text}"
+                );
+                return;
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"Username or password are incorrect please try again."
+                );
+                return;
+            }
+
             //this.Close();
             //Login_Form main_menu = new();
             //main_menu.Show();
+        }
+
+        private void Login_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            new Main_Form().Show();
         }
     }
 }
