@@ -1,4 +1,4 @@
-using Peripatos_Core;
+using Peripatos.Core;
 namespace Peripatos_UI
 {
     public partial class Main_Form : Form
@@ -6,11 +6,6 @@ namespace Peripatos_UI
         public Main_Form()
         {
             InitializeComponent();
-        }
-
-        private void Main_Form_Load(object sender, EventArgs e)
-        {
-            Database.Connect_PeripatosDB();
         }
 
         private void label_tour_odigos_Click(object sender, EventArgs e)
@@ -21,7 +16,7 @@ namespace Peripatos_UI
         {
             this.Hide();
             new Register_Form().Show();
-            
+
         }
 
         private void button_login_Click(object sender, EventArgs e)
@@ -67,6 +62,17 @@ namespace Peripatos_UI
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button_beaches_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Beaches_Form().Show();
+        }
+
+        private void Main_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }

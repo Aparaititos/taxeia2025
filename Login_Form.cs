@@ -2,7 +2,7 @@ using Peripatos_UI;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using Peripatos_Core;
+using Peripatos.Core;
 
 namespace Peripatos_UI
 {

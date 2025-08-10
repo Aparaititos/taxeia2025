@@ -1,3 +1,4 @@
+using Peripatos.Core;
 using Peripatos_UI;
 
 namespace Peripatos_UI
@@ -12,6 +13,9 @@ namespace Peripatos_UI
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+            Database.Connect_PeripatosDB();
+            AppList_Manager.Initialize_List_Beaches();
+
             ApplicationConfiguration.Initialize();
             Application.Run(new Main_Form());
         }
