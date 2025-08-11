@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             PictureBox_PlaceImage = new PictureBox();
             TextBox_PlaceTitle = new TextBox();
             RichTextBox_PlaceDescription = new RichTextBox();
@@ -36,6 +37,7 @@
             button_StartVoice = new Button();
             button_StopVoice = new Button();
             button_BackToMenu = new Button();
+            SildeshowTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)PictureBox_PlaceImage).BeginInit();
             SuspendLayout();
             // 
@@ -113,6 +115,11 @@
             button_BackToMenu.UseVisualStyleBackColor = true;
             button_BackToMenu.Click += button_BackToMenu_Click;
             // 
+            // SildeshowTimer
+            // 
+            SildeshowTimer.Interval = 2000;
+            SildeshowTimer.Tick += SildeshowTimer_Tick;
+            // 
             // Beaches_Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -145,5 +152,6 @@
         private Button button_StartVoice;
         private Button button_StopVoice;
         private Button button_BackToMenu;
+        private System.Windows.Forms.Timer SildeshowTimer;
     }
 }

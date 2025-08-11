@@ -9,13 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Speech.Synthesis;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Peripatos_UI
 {
     public partial class Beaches_Form : Form
     {
-        SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+        readonly SpeechSynthesizer synthesizer = new();
         public int Beach_Show_Index = 0;
+
+        private List<byte[]> _slideshowImages = [];
+        private int _currentImageIndex;
+
         public Beaches_Form()
         {
             InitializeComponent();
@@ -28,6 +34,8 @@ namespace Peripatos_UI
 
         private void Beaches_Form_Load(object sender, EventArgs e)
         {
+            
+            StartSlideShow();
             Check_if_Buttons_Enabled();
             ModifyStartStopVoiceButtons();
             Render_new_Beach_Data();
@@ -40,8 +48,10 @@ namespace Peripatos_UI
                 synthesizer.SpeakAsyncCancelAll();
             }
             Beach_Show_Index--;
-            Render_new_Beach_Data();
             Check_if_Buttons_Enabled();
+            Render_new_Beach_Data();
+            StartSlideShow();
+            
         }
 
         private void button_Next_Click(object sender, EventArgs e)
@@ -51,8 +61,9 @@ namespace Peripatos_UI
                 synthesizer.SpeakAsyncCancelAll();
             }
             Beach_Show_Index++;
-            Render_new_Beach_Data();
             Check_if_Buttons_Enabled();
+            Render_new_Beach_Data();
+            StartSlideShow();
         }
 
         private void Check_if_Buttons_Enabled()
@@ -78,7 +89,6 @@ namespace Peripatos_UI
         {
             TextBox_PlaceTitle.Text = AppList_Manager.List_Beaches[Beach_Show_Index].Title;
             RichTextBox_PlaceDescription.Text = AppList_Manager.List_Beaches[Beach_Show_Index].Description;
-            PictureBox_PlaceImage.Image = Image.FromStream(new MemoryStream(AppList_Manager.List_Beaches[Beach_Show_Index].ImageBytes));
         }
 
         private void ModifyStartStopVoiceButtons()
@@ -133,6 +143,36 @@ namespace Peripatos_UI
             this.Hide();
             //show main menu
             new Main_Form().Show();
+        }
+
+        private void StartSlideShow()
+        {
+            _slideshowImages = AppList_Manager.List_Beaches[Beach_Show_Index].Images;
+            _currentImageIndex = -1;
+            ShowNextImage();
+            SildeshowTimer.Start();
+        }
+
+        private void ShowNextImage()
+        {
+            _currentImageIndex = (_currentImageIndex + 1) % _slideshowImages.Count;
+
+
+            var oldImage = PictureBox_PlaceImage.Image;
+            PictureBox_PlaceImage.Image = BytesToBitmapSafe(_slideshowImages[_currentImageIndex]);
+            oldImage?.Dispose();
+        }
+
+        private static Bitmap BytesToBitmapSafe(byte[] bytes)
+        {
+            using var ms = new MemoryStream(bytes);
+            using var temp = Image.FromStream(ms);
+            return new Bitmap(temp);
+        }
+
+        private void SildeshowTimer_Tick(object sender, EventArgs e)
+        {
+            ShowNextImage();
         }
     }
 }
