@@ -34,10 +34,10 @@ namespace Peripatos_UI
 
         private void Beaches_Form_Load(object sender, EventArgs e)
         {
-            
-            StartSlideShow();
+            StartCurrentBeachSlideShow();
             Check_if_Buttons_Enabled();
             ModifyStartStopVoiceButtons();
+            Add_DropdownList_Items();
             Render_new_Beach_Data();
         }
 
@@ -50,8 +50,7 @@ namespace Peripatos_UI
             Beach_Show_Index--;
             Check_if_Buttons_Enabled();
             Render_new_Beach_Data();
-            StartSlideShow();
-            
+
         }
 
         private void button_Next_Click(object sender, EventArgs e)
@@ -63,7 +62,6 @@ namespace Peripatos_UI
             Beach_Show_Index++;
             Check_if_Buttons_Enabled();
             Render_new_Beach_Data();
-            StartSlideShow();
         }
 
         private void Check_if_Buttons_Enabled()
@@ -89,6 +87,7 @@ namespace Peripatos_UI
         {
             TextBox_PlaceTitle.Text = AppList_Manager.List_Beaches[Beach_Show_Index].Title;
             RichTextBox_PlaceDescription.Text = AppList_Manager.List_Beaches[Beach_Show_Index].Description;
+            StartCurrentBeachSlideShow();
         }
 
         private void ModifyStartStopVoiceButtons()
@@ -145,7 +144,7 @@ namespace Peripatos_UI
             new Main_Form().Show();
         }
 
-        private void StartSlideShow()
+        private void StartCurrentBeachSlideShow()
         {
             _slideshowImages = AppList_Manager.List_Beaches[Beach_Show_Index].Images;
             _currentImageIndex = -1;
@@ -173,6 +172,64 @@ namespace Peripatos_UI
         private void SildeshowTimer_Tick(object sender, EventArgs e)
         {
             ShowNextImage();
+        }
+
+        private void button_SaveFile_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new();
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                string selectedPath = folderDialog.SelectedPath;
+
+                Beach current_beach = AppList_Manager.List_Beaches[Beach_Show_Index];
+
+                string beachFolder = Path.Combine(selectedPath, current_beach.Title);
+                Directory.CreateDirectory(beachFolder);
+
+                string beachImageFolder = Path.Combine(beachFolder, "Images");
+                Directory.CreateDirectory(beachImageFolder);
+
+                string infoFilePath = Path.Combine(beachFolder, $"{current_beach.Title}_Info.txt");
+                string infoContent = $"Title: {current_beach.Title}{Environment.NewLine}{Environment.NewLine}Description:{Environment.NewLine}{current_beach.Description}";
+                File.WriteAllText(infoFilePath, infoContent, Encoding.UTF8);
+
+                string CoreBaseDir = Path.GetFullPath(
+                Path.Combine(
+                    Path.GetDirectoryName(typeof(Database).Assembly.Location)!,
+                    @"..\..\..\..\Peripatos.Core"
+                ));
+
+                var sourceImagesDir = Path.Combine(CoreBaseDir, "Data", "Beach", "Images", $"{current_beach.Title}");
+
+                if (Directory.Exists(sourceImagesDir))
+                {
+                    foreach (var srcPath in Directory.EnumerateFiles(sourceImagesDir, "*", SearchOption.AllDirectories))
+                    {
+                        string relative = Path.GetRelativePath(sourceImagesDir, srcPath);
+                        string dstPath = Path.Combine(beachImageFolder, relative);
+                        Directory.CreateDirectory(Path.GetDirectoryName(dstPath)!);
+                        File.Copy(srcPath, dstPath, overwrite: true);
+                    }
+                }
+
+            }
+        }
+
+        private void Add_DropdownList_Items()
+        {
+            Dropdown_Select_List.Items.Clear();
+            foreach (var beach in AppList_Manager.List_Beaches)
+            {
+                Dropdown_Select_List.Items.Add(beach.Title);
+            }
+        }
+
+        private void Dropdown_Select_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            synthesizer.SpeakAsyncCancelAll();
+            int selected_index = Dropdown_Select_List.SelectedIndex;
+            Beach_Show_Index = Dropdown_Select_List.SelectedIndex;
+            Render_new_Beach_Data();
         }
     }
 }
