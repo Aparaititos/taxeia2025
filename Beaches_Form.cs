@@ -22,14 +22,16 @@ namespace Peripatos_UI
         private List<byte[]> _slideshowImages = [];
         private int _currentImageIndex;
 
+        private SessionContext _session;
+
         public Beaches_Form()
         {
             InitializeComponent();
         }
 
-        private void Beaches_Form_FormClosed(object sender, FormClosedEventArgs e)
+        public Beaches_Form(SessionContext session) : this()
         {
-            Application.Exit();
+            _session = session;
         }
 
         private void Beaches_Form_Load(object sender, EventArgs e)
@@ -39,6 +41,26 @@ namespace Peripatos_UI
             ModifyStartStopVoiceButtons();
             Add_DropdownList_Items();
             Render_new_Beach_Data();
+
+            if (_session != null)
+            {
+                ApplyGuestRestrictions();
+            }
+            else
+            {
+                ApplyGuestRestrictions();
+            }
+        }
+
+        private void ApplyGuestRestrictions()
+        {
+            bool isGuest = (_session == null) || !_session.IsAuthenticated;
+
+            button_SaveFile.Enabled = !isGuest;
+            button_StartVoice.Enabled = !isGuest;
+            button_StopVoice.Enabled = !isGuest;
+
+   
         }
 
         private void Button_Previous_Click(object sender, EventArgs e)
@@ -138,10 +160,7 @@ namespace Peripatos_UI
         {
             //stop music
             synthesizer.SpeakAsyncCancelAll();
-            //hide this form
-            this.Hide();
-            //show main menu
-            new Main_Form().Show();
+            this.Close();
         }
 
         private void StartCurrentBeachSlideShow()
@@ -228,7 +247,7 @@ namespace Peripatos_UI
         {
             synthesizer.SpeakAsyncCancelAll();
             int selected_index = Dropdown_Select_List.SelectedIndex;
-            Beach_Show_Index = Dropdown_Select_List.SelectedIndex;
+            Beach_Show_Index = selected_index;
             Render_new_Beach_Data();
         }
     }

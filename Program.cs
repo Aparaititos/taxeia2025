@@ -21,7 +21,8 @@ namespace Peripatos_UI
             AppList_Manager.Initialize_List_Beaches();
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new Main_Form());
+            var session = new SessionContext(UserProfile.Guest());
+            Application.Run(new Main_Form(session));
         }
     }
 }

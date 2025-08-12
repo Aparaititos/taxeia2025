@@ -160,7 +160,6 @@
             Controls.Add(PictureBox_PlaceImage);
             Name = "Beaches_Form";
             Text = "Beaches_Form";
-            FormClosed += Beaches_Form_FormClosed;
             Load += Beaches_Form_Load;
             ((System.ComponentModel.ISupportInitialize)PictureBox_PlaceImage).EndInit();
             ResumeLayout(false);

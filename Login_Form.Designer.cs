@@ -145,6 +145,7 @@ namespace Peripatos_UI
             LoginForm_LinkLabel_GuestForm.TabIndex = 9;
             LoginForm_LinkLabel_GuestForm.TabStop = true;
             LoginForm_LinkLabel_GuestForm.Text = "here";
+            LoginForm_LinkLabel_GuestForm.LinkClicked += LoginForm_LinkLabel_GuestForm_LinkClicked;
             // 
             // Login_Form
             // 
@@ -163,7 +164,6 @@ namespace Peripatos_UI
             Controls.Add(Label_LoginTitle);
             Name = "Login_Form";
             Text = "Peripatos - Login";
-            FormClosed += Login_Form_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

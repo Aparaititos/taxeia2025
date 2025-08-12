@@ -41,7 +41,6 @@
             button_register = new Button();
             button_login = new Button();
             button_logout = new Button();
-            button_guest = new Button();
             button_beaches = new Button();
             button_sights = new Button();
             button_restaurants = new Button();
@@ -92,7 +91,6 @@
             guestToolStripMenuItem.Name = "guestToolStripMenuItem";
             guestToolStripMenuItem.Size = new Size(178, 22);
             guestToolStripMenuItem.Text = "Σύνδεση Επισκέπτη";
-            guestToolStripMenuItem.Click += guestToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
@@ -158,17 +156,6 @@
             button_logout.UseVisualStyleBackColor = true;
             button_logout.Click += button_logout_Click;
             // 
-            // button_guest
-            // 
-            button_guest.Location = new Point(18, 115);
-            button_guest.Margin = new Padding(3, 2, 3, 2);
-            button_guest.Name = "button_guest";
-            button_guest.Size = new Size(96, 22);
-            button_guest.TabIndex = 5;
-            button_guest.Text = "Επισκέπτης";
-            button_guest.UseVisualStyleBackColor = true;
-            button_guest.Click += button_guest_Click;
-            // 
             // button_beaches
             // 
             button_beaches.Location = new Point(231, 61);
@@ -208,7 +195,6 @@
             Controls.Add(button_restaurants);
             Controls.Add(button_sights);
             Controls.Add(button_beaches);
-            Controls.Add(button_guest);
             Controls.Add(button_logout);
             Controls.Add(button_login);
             Controls.Add(button_register);
@@ -217,6 +203,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 2, 3, 2);
             Name = "Main_Form";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Τουριστικός Οδηγός";
             FormClosed += Main_Form_FormClosed;
             menuStrip1.ResumeLayout(false);
@@ -240,7 +227,6 @@
         private Button button_register;
         private Button button_login;
         private Button button_logout;
-        private Button button_guest;
         private Button button_beaches;
         private Button button_sights;
         private Button button_restaurants;

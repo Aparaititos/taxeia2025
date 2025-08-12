@@ -40,13 +40,6 @@ namespace Peripatos_UI
             this.Button_Submit.Click += this.Button_Register_Click;
         }
 
-        private void LoginForm_LinkLabel_GuestForm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            this.Hide();
-            //MainMenu mainmenu = new MainMenu();
-            //mainmenu.Show();
-        }
-
         private void Textbox_Password_TextChanged(object sender, EventArgs e)
         {
             string input_Password = Textbox_Password.Text;
@@ -67,8 +60,8 @@ namespace Peripatos_UI
 
             bool isCheckLength10Chars = Regex.IsMatch(input_Password, CheckLength10Chars);
             bool isCheck1UpperCase = Regex.IsMatch(input_Password, Check1UpperCase);
-            bool isCheck1Symbol = Regex.IsMatch(input_Password, Check1Digit);
-            bool isCheck1Digit = Regex.IsMatch(input_Password, Check1Symbol);
+            bool isCheck1Symbol = Regex.IsMatch(input_Password, Check1Symbol);
+            bool isCheck1Digit = Regex.IsMatch(input_Password, Check1Digit);
 
             if (!isCheckLength10Chars)
             {
@@ -136,13 +129,8 @@ namespace Peripatos_UI
                 );
                 return;
             }
-            this.Hide();
-            new Login_Form().Show();
-        }
-
-        private void Register_Form_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Hide();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

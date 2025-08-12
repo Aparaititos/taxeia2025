@@ -1,13 +1,18 @@
+using Peripatos.Core;
 using Peripatos_UI;
+using System.Numerics;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using Peripatos.Core;
 
 namespace Peripatos_UI
 {
+
     public partial class Login_Form : Form
     {
+        public UserProfile AuthenticatedUser { get; private set; }
+        public bool ContinueAsGuest { get; private set; }
         public Login_Form()
         {
             InitializeComponent();
@@ -15,40 +20,40 @@ namespace Peripatos_UI
 
         private void LoginForm_LinkLabel_CreateUserForm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Hide();
-            Register_Form register_form = new();
-            register_form.Show();
+            using (var reg = new Register_Form())
+            {
+                reg.StartPosition = FormStartPosition.CenterParent;
+                reg.ShowDialog(this);
+            }
+        }
+
+        private void LoginForm_LinkLabel_GuestForm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ContinueAsGuest = true;
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         protected void Button_Submit_Click(object? sender, EventArgs e)
         {
 
-            bool userExists = Database.Select_User(Textbox_Username.Text, Textbox_Password.Text);
+            var dt = Database.Select_User(Textbox_Username.Text, Textbox_Password.Text);
 
-            if (userExists)
+            if (dt.Rows.Count == 0)
             {
-                MessageBox.Show(
-                    $"Welcome {Textbox_Username.Text}"
-                );
-                return;
-            }
-            else
-            {
-                MessageBox.Show(
-                    $"Username or password are incorrect please try again."
-                );
+                MessageBox.Show("Username or password are incorrect, please try again.");
                 return;
             }
 
-            //this.Close();
-            //Login_Form main_menu = new();
-            //main_menu.Show();
+            var row = dt.Rows[0];
+            string? username = dt.Columns.Contains("Username") ? row["Username"].ToString() : Textbox_Username.Text;
+
+            AuthenticatedUser = UserProfile.Create(username);
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
-        private void Login_Form_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Hide();
-            new Main_Form().Show();
-        }
+        
     }
 }

@@ -50,8 +50,6 @@
             // LoginForm_LinkLabel_GuestForm
             // 
             LoginForm_LinkLabel_GuestForm.Location = new Point(371, 407);
-            LoginForm_LinkLabel_GuestForm.LinkClicked += LoginForm_LinkLabel_GuestForm_LinkClicked;
-            // 
             // LoginForm_Label_GuestForm
             // 
             LoginForm_Label_GuestForm.Location = new Point(24, 424);
@@ -90,7 +88,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "Register_Form";
             Text = "Peripatos - Register";
-            FormClosed += Register_Form_FormClosed;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
