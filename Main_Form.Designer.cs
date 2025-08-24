@@ -176,6 +176,7 @@
             button_sights.TabIndex = 7;
             button_sights.Text = "Αξιοθέατα";
             button_sights.UseVisualStyleBackColor = true;
+            button_sights.Click += button_sights_Click;
             // 
             // button_restaurants
             // 
@@ -186,6 +187,7 @@
             button_restaurants.TabIndex = 8;
             button_restaurants.Text = "Εστιατόρια";
             button_restaurants.UseVisualStyleBackColor = true;
+            button_restaurants.Click += button_restaurants_Click;
             // 
             // Main_Form
             // 

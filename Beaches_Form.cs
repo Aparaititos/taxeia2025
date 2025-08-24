@@ -2,27 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Speech.Synthesis;
-using System.Diagnostics;
-using System.Threading;
 
 namespace Peripatos_UI
 {
     public partial class Beaches_Form : Form
     {
-        readonly SpeechSynthesizer synthesizer = new();
-        public int Beach_Show_Index = 0;
 
+        private SpeechSynthesizer? _synth;
+        private SpeechSynthesizer synthesizer => _synth ??= new SpeechSynthesizer();
         private List<byte[]> _slideshowImages = [];
         private int _currentImageIndex;
 
-        private SessionContext _session;
+
+
+        protected static bool IsDesignModeStatic =>
+        LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+        protected bool IsDesignMode =>
+            IsDesignModeStatic || (Site?.DesignMode ?? false);
+        protected virtual int ItemsCount => AppList_Manager.List_Beaches.Count;
+        protected int Show_Index = 0;
+        protected virtual string GetTitle(int i) => AppList_Manager.List_Beaches[i].Title;
+        protected virtual string GetDescription(int i) => AppList_Manager.List_Beaches[i].Description;
+        protected virtual List<byte[]> GetImages(int i) => AppList_Manager.List_Beaches[i].Images;
+        protected virtual IEnumerable<string> GetAllTitles() => AppList_Manager.List_Beaches.Select(b => b.Title);
+        protected SessionContext? Session { get; private set; }
+
+
 
         public Beaches_Form()
         {
@@ -31,18 +46,20 @@ namespace Peripatos_UI
 
         public Beaches_Form(SessionContext session) : this()
         {
-            _session = session;
+            Session = session;
         }
 
         private void Beaches_Form_Load(object sender, EventArgs e)
         {
+            if (IsDesignMode) return;
+
             StartCurrentBeachSlideShow();
             Check_if_Buttons_Enabled();
             ModifyStartStopVoiceButtons();
             Add_DropdownList_Items();
             Render_new_Beach_Data();
 
-            if (_session != null)
+            if (Session != null)
             {
                 ApplyGuestRestrictions();
             }
@@ -52,9 +69,9 @@ namespace Peripatos_UI
             }
         }
 
-        private void ApplyGuestRestrictions()
+        protected void ApplyGuestRestrictions()
         {
-            bool isGuest = (_session == null) || !_session.IsAuthenticated;
+            bool isGuest = (Session == null) || !Session.IsAuthenticated;
 
             button_SaveFile.Enabled = !isGuest;
             button_StartVoice.Enabled = !isGuest;
@@ -69,10 +86,9 @@ namespace Peripatos_UI
             {
                 synthesizer.SpeakAsyncCancelAll();
             }
-            Beach_Show_Index--;
+            Show_Index--;
             Check_if_Buttons_Enabled();
             Render_new_Beach_Data();
-
         }
 
         private void button_Next_Click(object sender, EventArgs e)
@@ -81,19 +97,19 @@ namespace Peripatos_UI
             {
                 synthesizer.SpeakAsyncCancelAll();
             }
-            Beach_Show_Index++;
+            Show_Index++;
             Check_if_Buttons_Enabled();
             Render_new_Beach_Data();
         }
 
-        private void Check_if_Buttons_Enabled()
+        protected virtual void Check_if_Buttons_Enabled()
         {
-            if (Beach_Show_Index == 0)
+            if (Show_Index == 0)
             {
                 button_Previous.Enabled = false;
                 button_Next.Enabled = true;
             }
-            else if (Beach_Show_Index > 0 && Beach_Show_Index < AppList_Manager.List_Beaches.Count - 1)
+            else if (Show_Index > 0 && Show_Index < ItemsCount - 1)
             {
                 button_Previous.Enabled = true;
                 button_Next.Enabled = true;
@@ -105,15 +121,17 @@ namespace Peripatos_UI
             }
         }
 
-        private void Render_new_Beach_Data()
+        protected virtual void Render_new_Beach_Data()
         {
-            TextBox_PlaceTitle.Text = AppList_Manager.List_Beaches[Beach_Show_Index].Title;
-            RichTextBox_PlaceDescription.Text = AppList_Manager.List_Beaches[Beach_Show_Index].Description;
+            TextBox_PlaceTitle.Text = GetTitle(Show_Index);
+            RichTextBox_PlaceDescription.Text = GetDescription(Show_Index);
             StartCurrentBeachSlideShow();
         }
 
-        private void ModifyStartStopVoiceButtons()
+        protected void ModifyStartStopVoiceButtons()
         {
+            if (IsDesignMode) return;
+
             //Text-to-voice (START) modifications
             button_StartVoice.FlatStyle = FlatStyle.Flat;
             button_StartVoice.FlatAppearance.BorderSize = 0;
@@ -145,7 +163,9 @@ namespace Peripatos_UI
 
         private void button_StartVoice_Click(object sender, EventArgs e)
         {
-            string text = AppList_Manager.List_Beaches[Beach_Show_Index].Description;
+            if (IsDesignMode) return;
+
+            string text = GetDescription(Show_Index);
             synthesizer.SelectVoice("Microsoft Stefanos");
             synthesizer.SpeakAsyncCancelAll();
             synthesizer.SpeakAsync(text);
@@ -153,6 +173,7 @@ namespace Peripatos_UI
 
         private void button_StopVoice_Click(object sender, EventArgs e)
         {
+            if (IsDesignMode) return;
             synthesizer.SpeakAsyncCancelAll();
         }
 
@@ -163,9 +184,11 @@ namespace Peripatos_UI
             this.Close();
         }
 
-        private void StartCurrentBeachSlideShow()
+        protected void StartCurrentBeachSlideShow()
         {
-            _slideshowImages = AppList_Manager.List_Beaches[Beach_Show_Index].Images;
+            if (IsDesignMode) return;
+
+            _slideshowImages = GetImages(Show_Index);
             _currentImageIndex = -1;
             ShowNextImage();
             SildeshowTimer.Start();
@@ -173,6 +196,8 @@ namespace Peripatos_UI
 
         private void ShowNextImage()
         {
+            if (_slideshowImages.Count == 0) return;
+
             _currentImageIndex = (_currentImageIndex + 1) % _slideshowImages.Count;
 
 
@@ -193,61 +218,64 @@ namespace Peripatos_UI
             ShowNextImage();
         }
 
-        private void button_SaveFile_Click(object sender, EventArgs e)
+        protected virtual void button_SaveFile_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderDialog = new();
-            if (folderDialog.ShowDialog() == DialogResult.OK)
+            if (IsDesignMode || ItemsCount == 0) return;
+
+            using var dlg = new FolderBrowserDialog();
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+
+            var selectedPath = dlg.SelectedPath;
+
+            var title = GetTitle(Show_Index);
+            var description = GetDescription(Show_Index);
+
+            var folder = Path.Combine(selectedPath, title);
+            Directory.CreateDirectory(folder);
+
+            File.WriteAllText(Path.Combine(folder, $"{title}_Info.txt"),
+                $"Title: {title}{Environment.NewLine}{Environment.NewLine}Description:{Environment.NewLine}{description}",
+                Encoding.UTF8);
+
+
+
+            var imagesFolder = Path.Combine(folder, "Images");
+            Directory.CreateDirectory(imagesFolder);
+
+            string CoreBaseDir = Path.GetFullPath(
+            Path.Combine(
+                Path.GetDirectoryName(typeof(Database).Assembly.Location)!,
+                @"..\..\..\..\Peripatos.Core"
+            ));
+
+            string sourceImagesDir = Path.Combine(CoreBaseDir, "Data", "Beach", "Images", GetTitle(Show_Index));
+
+            
+            if (Directory.Exists(sourceImagesDir))
             {
-                string selectedPath = folderDialog.SelectedPath;
-
-                Beach current_beach = AppList_Manager.List_Beaches[Beach_Show_Index];
-
-                string beachFolder = Path.Combine(selectedPath, current_beach.Title);
-                Directory.CreateDirectory(beachFolder);
-
-                string beachImageFolder = Path.Combine(beachFolder, "Images");
-                Directory.CreateDirectory(beachImageFolder);
-
-                string infoFilePath = Path.Combine(beachFolder, $"{current_beach.Title}_Info.txt");
-                string infoContent = $"Title: {current_beach.Title}{Environment.NewLine}{Environment.NewLine}Description:{Environment.NewLine}{current_beach.Description}";
-                File.WriteAllText(infoFilePath, infoContent, Encoding.UTF8);
-
-                string CoreBaseDir = Path.GetFullPath(
-                Path.Combine(
-                    Path.GetDirectoryName(typeof(Database).Assembly.Location)!,
-                    @"..\..\..\..\Peripatos.Core"
-                ));
-
-                var sourceImagesDir = Path.Combine(CoreBaseDir, "Data", "Beach", "Images", $"{current_beach.Title}");
-
-                if (Directory.Exists(sourceImagesDir))
+                foreach (var srcPath in Directory.EnumerateFiles(sourceImagesDir, "*", SearchOption.AllDirectories))
                 {
-                    foreach (var srcPath in Directory.EnumerateFiles(sourceImagesDir, "*", SearchOption.AllDirectories))
-                    {
-                        string relative = Path.GetRelativePath(sourceImagesDir, srcPath);
-                        string dstPath = Path.Combine(beachImageFolder, relative);
-                        Directory.CreateDirectory(Path.GetDirectoryName(dstPath)!);
-                        File.Copy(srcPath, dstPath, overwrite: true);
-                    }
-                }
+                    string relative = Path.GetRelativePath(sourceImagesDir, srcPath);
+                    string dstPath = Path.Combine(imagesFolder, relative);
 
+                    Directory.CreateDirectory(Path.GetDirectoryName(dstPath)!);
+                    File.Copy(srcPath, dstPath, overwrite: true);
+                }
             }
         }
 
-        private void Add_DropdownList_Items()
+        protected void Add_DropdownList_Items()
         {
             Dropdown_Select_List.Items.Clear();
-            foreach (var beach in AppList_Manager.List_Beaches)
-            {
-                Dropdown_Select_List.Items.Add(beach.Title);
-            }
+            foreach (var title in GetAllTitles())
+                Dropdown_Select_List.Items.Add(title);
         }
 
         private void Dropdown_Select_List_SelectedIndexChanged(object sender, EventArgs e)
         {
             synthesizer.SpeakAsyncCancelAll();
-            int selected_index = Dropdown_Select_List.SelectedIndex;
-            Beach_Show_Index = selected_index;
+            Show_Index = Dropdown_Select_List.SelectedIndex;
+            Check_if_Buttons_Enabled();
             Render_new_Beach_Data();
         }
     }

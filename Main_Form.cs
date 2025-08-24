@@ -39,7 +39,7 @@ namespace Peripatos_UI
             }
         }
 
-        
+
 
 
         private void label_tour_odigos_Click(object sender, EventArgs e)
@@ -84,30 +84,30 @@ namespace Peripatos_UI
         private void button_login_Click(object sender, EventArgs e)
         {
             try
+            {
+                this.Hide();
+                using (var login = new Login_Form())
                 {
-                    this.Hide();
-                    using (var login = new Login_Form())
-                    {
-                        login.StartPosition = FormStartPosition.CenterParent;
-                        var result = login.ShowDialog(this);
+                    login.StartPosition = FormStartPosition.CenterParent;
+                    var result = login.ShowDialog(this);
 
-                        if (result == DialogResult.OK && login.AuthenticatedUser != null)
-                        {
-                            _session.SignIn(login.AuthenticatedUser);
-                    
-                        }
+                    if (result == DialogResult.OK && login.AuthenticatedUser != null)
+                    {
+                        _session.SignIn(login.AuthenticatedUser);
+
+                    }
                     else if (login.ContinueAsGuest)
                     {
-                        _session.SignOut();            
+                        _session.SignOut();
                     }
                 }
-                 }
+            }
             finally
-                {
-                    this.Show();
-                    this.Activate();
-                    this.BringToFront();
-                }
+            {
+                this.Show();
+                this.Activate();
+                this.BringToFront();
+            }
         }
 
 
@@ -149,6 +149,29 @@ namespace Peripatos_UI
             beaches.Show(this);
         }
 
+        private void button_sights_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var sights = new Sights_Form(_session);
+            sights.FormClosed += (s, args) =>
+            {
+                this.Show();
+                this.Activate();
+            };
+            sights.Show(this);
+        }
+            private void button_restaurants_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var restaurants = new Restaurant_Form(_session);
+            restaurants.FormClosed += (s, args) =>
+            {
+                this.Show();
+                this.Activate();
+            };
+            restaurants.Show(this);
+        }
+
         private void Main_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -158,5 +181,7 @@ namespace Peripatos_UI
         {
             _session.SignOut();
         }
+
+        
     }
 }

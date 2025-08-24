@@ -17,8 +17,8 @@ namespace Peripatos_UI
             //1. Delete the PlaceImage table.
             //2. Insert images with place name as folder name in Beach/Images.
             //3. run the following method.
-            //Database.ONETIME_Insert_PlaceImage();
-            AppList_Manager.Initialize_List_Beaches();
+           // Database.ONETIME_Insert_PlaceImage("Restaurant");
+            AppList_Manager.Initialize_Lists();
 
             ApplicationConfiguration.Initialize();
             var session = new SessionContext(UserProfile.Guest());

@@ -168,16 +168,16 @@
 
         #endregion
 
-        private PictureBox PictureBox_PlaceImage;
-        private TextBox TextBox_PlaceTitle;
-        private RichTextBox RichTextBox_PlaceDescription;
-        private Button button_Previous;
-        private Button button_Next;
-        private Button button_StartVoice;
-        private Button button_StopVoice;
-        private Button button_BackToMenu;
-        private System.Windows.Forms.Timer SildeshowTimer;
-        private Button button_SaveFile;
-        private ComboBox Dropdown_Select_List;
+        public PictureBox PictureBox_PlaceImage;
+        public TextBox TextBox_PlaceTitle;
+        public RichTextBox RichTextBox_PlaceDescription;
+        public Button button_Previous;
+        public Button button_Next;
+        public Button button_StartVoice;
+        public Button button_StopVoice;
+        public Button button_BackToMenu;
+        public System.Windows.Forms.Timer SildeshowTimer;
+        public Button button_SaveFile;
+        public ComboBox Dropdown_Select_List;
     }
 }
